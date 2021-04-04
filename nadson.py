@@ -127,16 +127,28 @@ def calcula_custos():
 
 
 def media_lucro():
-    return statistics.mean(lucros)
+    if len(lucros) > 0:
+        return statistics.mean(lucros)
+    else:
+        return 0
 
 
 def media_lucro_baixa_ocorrencia():
-    return statistics.mean(lucros_baixa_ocorrencia)
+    if len(lucros_baixa_ocorrencia) > 0:
+        return statistics.mean(lucros_baixa_ocorrencia)
+    else:
+        return 0
 
 
 def media_lucro_media_ocorrencia():
-    return statistics.mean(lucros_media_ocorrencia)
+    if len(lucros_media_ocorrencia) > 0:
+        return round(statistics.mean(lucros_media_ocorrencia), 2)
+    else:
+        return 0
 
 
 def media_lucro_alta_ocorrencia():
-    return statistics.mean(lucros_alta_ocorrencia)
+    if len(lucros_alta_ocorrencia) > 0:
+        return statistics.mean(lucros_alta_ocorrencia)
+    else:
+        return 0

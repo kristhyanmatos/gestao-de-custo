@@ -59,7 +59,7 @@ graficos[0].bar(
     label="Média Lucro",
 )
 lucros = nadson.calcula_custos()
-graficos[1].plot(
+graficos[1].scatter(
     range(1000),
     lucros,
     color="#c91509",
