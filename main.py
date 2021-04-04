@@ -32,12 +32,11 @@ graficos = figura.subplots(2)
 canvas = FigureCanvasTkAgg(figura, janela_principal)
 canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
 
-
+valores_media_lucros = nadson.me
 variacao = 5
-demanda_alta = (0.4, 0.2, 0.3, 0.4, 0.4)
 indice = np.arange(variacao)
 largura_barra = 0.1
-
+lucros = nadson.calcula_custos()
 
 # Definindo o grafico de barra
 graficos[0].bar(indice, nadson.media_lucro_baixa_ocorrencia(), largura_barra, color="#07079c", label="Baixa")
@@ -58,8 +57,7 @@ graficos[0].bar(
     color="#000",
     label="Média Lucro",
 )
-lucros = nadson.calcula_custos()
-graficos[1].scatter(
+graficos[1].plot(
     range(1000),
     lucros,
     color="#c91509",
@@ -67,7 +65,7 @@ graficos[1].scatter(
 )
 
 # graficos[0].set_xlim(0,100)
-graficos[0].set_ylim(0, 0.5)
+graficos[0].set_ylim(0, 12)
 graficos[0].set_title("Probabilidades de Demandas", fontweight="bold")
 graficos[0].set_xticks(indice + largura_barra)
 graficos[0].legend()
