@@ -34,24 +34,29 @@ canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
 
 
 variacao = 5
-demanda_baixa = (0.3, 0.4, 0.1, 0.3, 0.2)
-demanda_media = (0.2, 0.3, 0.1, 0.2, 0.4)
 demanda_alta = (0.4, 0.2, 0.3, 0.4, 0.4)
 indice = np.arange(variacao)
 largura_barra = 0.1
 
 
 # Definindo o grafico de barra
-graficos[0].bar(indice, demanda_baixa, largura_barra, color="#07079c", label="Baixa")
+graficos[0].bar(indice, nadson.media_lucro_baixa_ocorrencia(), largura_barra, color="#07079c", label="Baixa")
 graficos[0].bar(
-    indice + largura_barra, demanda_media, largura_barra, color="#f5ce1e", label="Média"
+    indice + largura_barra, nadson.media_lucro_media_ocorrencia(), largura_barra, color="#f5ce1e", label="Média"
 )
 graficos[0].bar(
     indice + largura_barra + largura_barra,
-    demanda_alta,
+    nadson.media_lucro_alta_ocorrencia(),
     largura_barra,
     color="#c91509",
-    label="Média",
+    label="Alta",
+)
+graficos[0].bar(
+    indice + largura_barra + largura_barra + largura_barra,
+    nadson.media_lucro(),
+    largura_barra,
+    color="#000",
+    label="Média Lucro",
 )
 lucros = nadson.calcula_custos()
 graficos[1].plot(
