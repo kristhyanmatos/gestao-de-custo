@@ -1,7 +1,7 @@
 import random
 import statistics
 
-numero_de_producao = 36
+numero_de_producao = 72
 numero_de_repeticoes = 1000
 ocorrencia = {"baixa": 25 / 100, "media": 70 / 100, "alta": 100 / 100}
 variacao_de_demanda = {
@@ -35,6 +35,9 @@ custo_de_producao_unitaria = -0.25  # R$
 preco_de_venda = 0.40  # R$
 preco_de_venda_promocao = 0.30  # R$
 lucros = []
+lucros_baixa_ocorrencia = []
+lucros_media_ocorrencia = []
+lucros_alta_ocorrencia = []
 
 
 def define_demanda(vetor_de_demandas, sorteio_de_variacao_de_demanda):
@@ -57,6 +60,7 @@ def define_demanda(vetor_de_demandas, sorteio_de_variacao_de_demanda):
 
 def calcula_custos():
     for interacao in range(numero_de_repeticoes):
+        tipo_ocorrencia = None
         saldo_venda_promocao = 0
         saldo_perda_venda = 0
         saldo_venda = 0
@@ -69,6 +73,7 @@ def calcula_custos():
             demanda = define_demanda(
                 variacao_de_demanda.get("baixa"), sorteio_de_variacao_de_demanda
             )
+            tipo_ocorrencia = "baixa"
         elif (
             ocorrencia.get("baixa") < sorteio_de_ocorrencia
             and ocorrencia.get("media") >= sorteio_de_ocorrencia
@@ -76,6 +81,7 @@ def calcula_custos():
             demanda = define_demanda(
                 variacao_de_demanda.get("media"), sorteio_de_variacao_de_demanda
             )
+            tipo_ocorrencia = "baixa"
         elif (
             ocorrencia.get("media") < sorteio_de_ocorrencia
             and ocorrencia.get("alta") >= sorteio_de_ocorrencia
@@ -83,8 +89,9 @@ def calcula_custos():
             demanda = define_demanda(
                 variacao_de_demanda.get("alta"), sorteio_de_variacao_de_demanda
             )
+            tipo_ocorrencia = "baixa"
 
-        # Cáculo de Custo de Produção $ 24
+        # Cáculo de Custo de Produção
         custo_de_producao = numero_de_producao * custo_de_producao_unitaria
 
         # Cálculo de Verificação de rendimento 8
@@ -108,10 +115,28 @@ def calcula_custos():
         saldo_total = (
             saldo_venda_promocao + saldo_venda + custo_de_producao + saldo_perda_venda
         )
+        if tipo_ocorrencia == "baixa":
+            lucros_baixa_ocorrencia.append(saldo_total)
+        elif tipo_ocorrencia == "media":
+            lucros_media_ocorrencia.append(saldo_total)
+        elif tipo_ocorrencia == "alta":
+            lucros_alta_ocorrencia.append(saldo_total)
+
         lucros.append(saldo_total)
-    print("soma", sum(lucros))
     return lucros
 
 
 def media_lucro():
     return statistics.mean(lucros)
+
+
+def media_lucro_baixa_ocorrencia():
+    return statistics.mean(lucros_baixa_ocorrencia)
+
+
+def media_lucro_media_ocorrencia():
+    return statistics.mean(lucros_media_ocorrencia)
+
+
+def media_lucro_alta_ocorrencia():
+    return statistics.mean(lucros_alta_ocorrencia)
