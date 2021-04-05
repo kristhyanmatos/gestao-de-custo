@@ -89,7 +89,7 @@ graficos[0].bar(
 graficos[1].plot(
     range(1000),
     lucros,
-    color="#c91509",
+    color="#03bb84",
     label="Média",
 )
 
@@ -104,7 +104,6 @@ graficos[0].grid(True)
 # Grafico de variação de saldo
 graficos[1].set_title("Variação de Saldo", fontweight="bold")
 graficos[1].grid(True)
-
 
 
 def calcular():
