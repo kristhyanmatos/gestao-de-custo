@@ -118,6 +118,10 @@ def set_valor_multiplo(event):
     print("FDC!")
 
 
+def calcular():
+    lucros = nadson.calcula_custos()
+
+
 # Label do valor inicial
 Label(
     janela_principal, text="Valor Inicial:", bg="#cfcfcf", fg="#000", font=13, anchor=W
@@ -151,6 +155,16 @@ Label(
 valor_multiplo = tk.Entry(janela_principal)
 valor_multiplo.bind("<Return>", set_valor_multiplo)
 valor_multiplo.place(relx=0.82, rely=0.50, anchor=tk.CENTER)
+
+# Botões para reprodução do áudio
+botao_calcular = Button(
+    janela_principal,
+    relief="groove",
+    text="Calcular",
+    font=13,
+    command=calcular,
+)
+botao_calcular.place(relx=0.82, rely=0.6, anchor=tk.CENTER)
 
 # Footer
 # Label(janela_principal, text="Desenvolvido pelos discentes de Eng. da Computação - 2017", bg="#cfcfcf",fg="#000", font=('Helvetica', 18, 'bold'), anchor=W).place(x=180,y=640,width=1080, height=27)
