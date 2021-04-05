@@ -81,7 +81,7 @@ def calcula_custos():
             demanda = define_demanda(
                 variacao_de_demanda.get("media"), sorteio_de_variacao_de_demanda
             )
-            tipo_ocorrencia = "baixa"
+            tipo_ocorrencia = "media"
         elif (
             ocorrencia.get("media") < sorteio_de_ocorrencia
             and ocorrencia.get("alta") >= sorteio_de_ocorrencia
@@ -89,7 +89,7 @@ def calcula_custos():
             demanda = define_demanda(
                 variacao_de_demanda.get("alta"), sorteio_de_variacao_de_demanda
             )
-            tipo_ocorrencia = "baixa"
+            tipo_ocorrencia = "alta"
 
         # Cáculo de Custo de Produção
         custo_de_producao = numero_de_producao * custo_de_producao_unitaria

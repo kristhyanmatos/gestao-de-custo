@@ -33,33 +33,50 @@ canvas = FigureCanvasTkAgg(figura, janela_principal)
 canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
 
 
-variacao = 5
-demanda_alta = (0.4, 0.2, 0.3, 0.4, 0.4)
+variacao = 1
 indice = np.arange(variacao)
 largura_barra = 0.1
+lucros = nadson.calcula_custos()
+media_lucro = nadson.media_lucro()
+media_lucro_baixa_ocorrencia = nadson.media_lucro_baixa_ocorrencia()
+media_lucro_media_ocorrencia = nadson.media_lucro_media_ocorrencia()
+media_lucro_alta_ocorrencia = nadson.media_lucro_alta_ocorrencia()
 
+print(media_lucro_baixa_ocorrencia)
+print(media_lucro_media_ocorrencia)
+print(media_lucro_alta_ocorrencia)
 
 # Definindo o grafico de barra
-graficos[0].bar(indice, nadson.media_lucro_baixa_ocorrencia(), largura_barra, color="#07079c", label="Baixa")
 graficos[0].bar(
-    indice + largura_barra, nadson.media_lucro_media_ocorrencia(), largura_barra, color="#f5ce1e", label="Média"
+    indice,
+    media_lucro_baixa_ocorrencia,
+    largura_barra,
+    color="#07079c",
+    label="Baixa",
+)
+graficos[0].bar(
+    indice + largura_barra,
+    media_lucro_media_ocorrencia,
+    largura_barra,
+    color="#c91509",
+    label="Média",
 )
 graficos[0].bar(
     indice + largura_barra + largura_barra,
-    nadson.media_lucro_alta_ocorrencia(),
+    media_lucro_alta_ocorrencia,
     largura_barra,
-    color="#c91509",
+    color="#000",
     label="Alta",
 )
 graficos[0].bar(
     indice + largura_barra + largura_barra + largura_barra,
-    nadson.media_lucro(),
+    media_lucro,
     largura_barra,
-    color="#000",
-    label="Média Lucro",
+    color="#cecece",
+    label="Total",
 )
-lucros = nadson.calcula_custos()
-graficos[1].scatter(
+
+graficos[1].plot(
     range(1000),
     lucros,
     color="#c91509",
@@ -67,10 +84,12 @@ graficos[1].scatter(
 )
 
 # graficos[0].set_xlim(0,100)
-graficos[0].set_ylim(0, 0.5)
+graficos[0].set_ylim(0, 12)
+graficos[0].set_xlim(0, 0.5)
 graficos[0].set_title("Probabilidades de Demandas", fontweight="bold")
 graficos[0].set_xticks(indice + largura_barra)
 graficos[0].legend()
+graficos[0].grid(True)
 
 
 graficos[1].set_title("Variação de saldo", fontweight="bold")
