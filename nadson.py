@@ -54,6 +54,7 @@ def define_demanda(vetor_de_demandas, sorteio_de_variacao_de_demanda):
 
     return aux_demanda.get("demanda")
 
+
 def calcula_custos():
     for interacao in range(numero_de_repeticoes):
         saldo_venda_promocao = 0
@@ -109,5 +110,8 @@ def calcula_custos():
         )
         lucros.append(saldo_total)
     print("soma", sum(lucros))
-    print("média", statistics.mean(lucros))
     return lucros
+
+
+def media_lucro():
+    return statistics.mean(lucros)
