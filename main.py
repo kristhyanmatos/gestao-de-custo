@@ -48,28 +48,42 @@ print(media_lucro_alta_ocorrencia)
 
 # Definindo o grafico de barra
 graficos[0].bar(
-    indice,
+    indice + largura_barra + largura_barra,
     media_lucro_baixa_ocorrencia,
     largura_barra,
     color="#07079c",
     label="Baixa",
 )
 graficos[0].bar(
-    indice + largura_barra,
+    indice + largura_barra + largura_barra + largura_barra + largura_barra,
     media_lucro_media_ocorrencia,
     largura_barra,
     color="#c91509",
     label="Média",
 )
 graficos[0].bar(
-    indice + largura_barra + largura_barra,
+    indice
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra,
     media_lucro_alta_ocorrencia,
     largura_barra,
     color="#000",
     label="Alta",
 )
 graficos[0].bar(
-    indice + largura_barra + largura_barra + largura_barra,
+    indice
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra,
     media_lucro,
     largura_barra,
     color="#cecece",
@@ -85,7 +99,7 @@ graficos[1].plot(
 
 # graficos[0].set_xlim(0,100)
 graficos[0].set_ylim(0, 12)
-graficos[0].set_xlim(0, 0.5)
+graficos[0].set_xlim(0, 1)
 graficos[0].set_title("Probabilidades de Demandas", fontweight="bold")
 graficos[0].set_xticks(indice + largura_barra)
 graficos[0].legend()
