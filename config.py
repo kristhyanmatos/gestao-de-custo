@@ -1,4 +1,4 @@
-NUMERO_DE_PRODUCAO = 72
+NUMERO_DE_PRODUCAO = 200
 NUMERO_DE_REPETICOES = 1000
 ocorrencia = {"baixa": 25 / 100, "media": 70 / 100, "alta": 100 / 100}
 VARIACAO_DE_DEMANDA = {
