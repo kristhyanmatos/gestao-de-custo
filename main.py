@@ -42,24 +42,20 @@ media_lucro_baixa_ocorrencia = nadson.media_lucro_baixa_ocorrencia()
 media_lucro_media_ocorrencia = nadson.media_lucro_media_ocorrencia()
 media_lucro_alta_ocorrencia = nadson.media_lucro_alta_ocorrencia()
 
-print(media_lucro_baixa_ocorrencia)
-print(media_lucro_media_ocorrencia)
-print(media_lucro_alta_ocorrencia)
-
 # Definindo o grafico de barra
 graficos[0].bar(
     indice + largura_barra + largura_barra,
     media_lucro_baixa_ocorrencia,
     largura_barra,
     color="#07079c",
-    label="Baixa",
+    label=f"Baixa:{media_lucro_baixa_ocorrencia}",
 )
 graficos[0].bar(
     indice + largura_barra + largura_barra + largura_barra + largura_barra,
     media_lucro_media_ocorrencia,
     largura_barra,
     color="#c91509",
-    label="Média",
+    label=f"Média: {media_lucro_media_ocorrencia}",
 )
 graficos[0].bar(
     indice
@@ -72,7 +68,7 @@ graficos[0].bar(
     media_lucro_alta_ocorrencia,
     largura_barra,
     color="#000",
-    label="Alta",
+    label=f"Alta: {media_lucro_alta_ocorrencia}",
 )
 graficos[0].bar(
     indice
@@ -87,7 +83,7 @@ graficos[0].bar(
     media_lucro,
     largura_barra,
     color="#cecece",
-    label="Total",
+    label=f"Total: {media_lucro}",
 )
 
 graficos[1].plot(
@@ -100,7 +96,7 @@ graficos[1].plot(
 # graficos[0].set_xlim(0,100)
 graficos[0].set_ylim(0, 12)
 graficos[0].set_xlim(0, 1)
-graficos[0].set_title("Probabilidades de Demandas", fontweight="bold")
+graficos[0].set_title("Probabilidades de Ocorrência", fontweight="bold")
 graficos[0].set_xticks(indice + largura_barra)
 graficos[0].legend()
 graficos[0].grid(True)

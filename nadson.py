@@ -1,11 +1,10 @@
 import random
 import statistics
 
-numero_de_producao = 72
+numero_de_producao = 96
 numero_de_repeticoes = 1000
 ocorrencia = {"baixa": 25 / 100, "media": 70 / 100, "alta": 100 / 100}
 variacao_de_demanda = {
-    # TODO: Melhorar essa questão de setar as variações
     "baixa": [
         {"variacao": 0.15, "demanda": 36},
         {"variacao": 0.40, "demanda": 48},
@@ -128,14 +127,14 @@ def calcula_custos():
 
 def media_lucro():
     if len(lucros) > 0:
-        return statistics.mean(lucros)
+        return round(statistics.mean(lucros), 2)
     else:
         return 0
 
 
 def media_lucro_baixa_ocorrencia():
     if len(lucros_baixa_ocorrencia) > 0:
-        return statistics.mean(lucros_baixa_ocorrencia)
+        return round(statistics.mean(lucros_baixa_ocorrencia), 2)
     else:
         return 0
 
@@ -149,6 +148,6 @@ def media_lucro_media_ocorrencia():
 
 def media_lucro_alta_ocorrencia():
     if len(lucros_alta_ocorrencia) > 0:
-        return statistics.mean(lucros_alta_ocorrencia)
+        return round(statistics.mean(lucros_alta_ocorrencia), 2)
     else:
         return 0
