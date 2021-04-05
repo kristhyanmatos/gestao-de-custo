@@ -23,7 +23,7 @@ altura_janela = janela_principal.winfo_screenheight()
 
 janela_principal.geometry("%dx%d+0+0" % (largura_janela, altura_janela))
 
-largura_grafico = largura_janela * 0.75
+largura_grafico = largura_janela * 0.95
 altura_grafico = altura_janela * 0.85
 figura = Figure(figsize=(largura_grafico / DPI, altura_grafico / DPI), dpi=DPI)
 figura.patch.set_facecolor("#cfcfcf")
@@ -35,7 +35,7 @@ canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
 
 variacao = 1
 indice = np.arange(variacao)
-largura_barra = 0.1
+largura_barra = 0.09
 lucros = nadson.calcula_custos()
 media_lucro = nadson.media_lucro()
 media_lucro_baixa_ocorrencia = nadson.media_lucro_baixa_ocorrencia()
@@ -67,7 +67,7 @@ graficos[0].bar(
     + largura_barra,
     media_lucro_alta_ocorrencia,
     largura_barra,
-    color="#000",
+    color="#078906",
     label=f"Alta: {media_lucro_alta_ocorrencia}",
 )
 graficos[0].bar(
@@ -82,7 +82,7 @@ graficos[0].bar(
     + largura_barra,
     media_lucro,
     largura_barra,
-    color="#cecece",
+    color="#f5bf14",
     label=f"Total: {media_lucro}",
 )
 
@@ -93,16 +93,16 @@ graficos[1].plot(
     label="Média",
 )
 
-# graficos[0].set_xlim(0,100)
-graficos[0].set_ylim(0, 12)
-graficos[0].set_xlim(0, 1)
+# Grafico de Barra
+graficos[0].set_ylim(0, 15)
 graficos[0].set_title("Probabilidades de Ocorrência", fontweight="bold")
 graficos[0].set_xticks(indice + largura_barra)
 graficos[0].legend()
 graficos[0].grid(True)
 
 
-graficos[1].set_title("Variação de saldo", fontweight="bold")
+# Grafico de variação de saldo
+graficos[1].set_title("Variação de Saldo", fontweight="bold")
 graficos[1].grid(True)
 
 
