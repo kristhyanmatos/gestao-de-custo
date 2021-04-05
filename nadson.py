@@ -1,51 +1,20 @@
 import random
 import statistics
 
-numero_de_producao = 72
-numero_de_repeticoes = 1000
-ocorrencia = {"baixa": 25 / 100, "media": 70 / 100, "alta": 100 / 100}
-variacao_de_demanda = {
-    # TODO: Melhorar essa questão de setar as variações
-    "baixa": [
-        {"variacao": 0.15, "demanda": 36},
-        {"variacao": 0.40, "demanda": 48},
-        {"variacao": 0.75, "demanda": 60},
-        {"variacao": 0.90, "demanda": 72},
-        {"variacao": 0.95, "demanda": 84},
-        {"variacao": 1, "demanda": 96},
-    ],
-    "media": [
-        {"variacao": 0.10, "demanda": 36},
-        {"variacao": 0.30, "demanda": 48},
-        {"variacao": 0.60, "demanda": 60},
-        {"variacao": 0.85, "demanda": 72},
-        {"variacao": 0.95, "demanda": 84},
-        {"variacao": 1, "demanda": 96},
-    ],
-    "alta": [
-        {"variacao": 0.05, "demanda": 36},
-        {"variacao": 0.15, "demanda": 48},
-        {"variacao": 0.40, "demanda": 60},
-        {"variacao": 0.70, "demanda": 72},
-        {"variacao": 0.90, "demanda": 84},
-        {"variacao": 1, "demanda": 96},
-    ],
-}
-custo_de_producao_unitaria = -0.25  # R$
-preco_de_venda = 0.40  # R$
-preco_de_venda_promocao = 0.30  # R$
 lucros = []
 lucros_baixa_ocorrencia = []
 lucros_media_ocorrencia = []
 lucros_alta_ocorrencia = []
 
+import config
 
-def define_demanda(vetor_de_demandas, sorteio_de_variacao_de_demanda):
+
+def define_demanda(vetor_de_demandas, sorteio_de_VARIACAO_DE_DEMANDA):
     aux_demanda = {"subtracao_variacao": None, "demanda": 0}
     for item in vetor_de_demandas:
-        if item.get("variacao") >= sorteio_de_variacao_de_demanda:
+        if item.get("variacao") >= sorteio_de_VARIACAO_DE_DEMANDA:
             subtracao_variacao = round(
-                (item.get("variacao") - sorteio_de_variacao_de_demanda), 2
+                (item.get("variacao") - sorteio_de_VARIACAO_DE_DEMANDA), 2
             )
             if aux_demanda.get("subtracao_variacao") is not None:
                 if aux_demanda.get("subtracao_variacao") > subtracao_variacao:
@@ -59,58 +28,64 @@ def define_demanda(vetor_de_demandas, sorteio_de_variacao_de_demanda):
 
 
 def calcula_custos():
-    for interacao in range(numero_de_repeticoes):
+    for interacao in range(config.NUMERO_DE_REPETICOES):
         tipo_ocorrencia = None
         saldo_venda_promocao = 0
         saldo_perda_venda = 0
         saldo_venda = 0
 
         sorteio_de_ocorrencia = round(random.random(), 2)
-        sorteio_de_variacao_de_demanda = round(random.random(), 2)
+        sorteio_de_VARIACAO_DE_DEMANDA = round(random.random(), 2)
 
         demanda = None
-        if ocorrencia.get("baixa") >= sorteio_de_ocorrencia:
+        if config.ocorrencia.get("baixa") >= sorteio_de_ocorrencia:
             demanda = define_demanda(
-                variacao_de_demanda.get("baixa"), sorteio_de_variacao_de_demanda
+                config.VARIACAO_DE_DEMANDA.get("baixa"), sorteio_de_VARIACAO_DE_DEMANDA
             )
             tipo_ocorrencia = "baixa"
         elif (
-            ocorrencia.get("baixa") < sorteio_de_ocorrencia
-            and ocorrencia.get("media") >= sorteio_de_ocorrencia
+            config.ocorrencia.get("baixa") < sorteio_de_ocorrencia
+            and config.ocorrencia.get("media") >= sorteio_de_ocorrencia
         ):
             demanda = define_demanda(
-                variacao_de_demanda.get("media"), sorteio_de_variacao_de_demanda
+                config.VARIACAO_DE_DEMANDA.get("media"), sorteio_de_VARIACAO_DE_DEMANDA
             )
-            tipo_ocorrencia = "baixa"
+            tipo_ocorrencia = "media"
         elif (
-            ocorrencia.get("media") < sorteio_de_ocorrencia
-            and ocorrencia.get("alta") >= sorteio_de_ocorrencia
+            config.ocorrencia.get("media") < sorteio_de_ocorrencia
+            and config.ocorrencia.get("alta") >= sorteio_de_ocorrencia
         ):
             demanda = define_demanda(
-                variacao_de_demanda.get("alta"), sorteio_de_variacao_de_demanda
+                config.VARIACAO_DE_DEMANDA.get("alta"), sorteio_de_VARIACAO_DE_DEMANDA
             )
-            tipo_ocorrencia = "baixa"
+            tipo_ocorrencia = "alta"
 
         # Cáculo de Custo de Produção
-        custo_de_producao = numero_de_producao * custo_de_producao_unitaria
+        custo_de_producao = config.NUMERO_DE_PRODUCAO * config.CUSTO_PRODUCAO_UNITARIA
 
         # Cálculo de Verificação de rendimento 8
-        resto_de_venda = numero_de_producao - demanda
+        resto_de_venda = config.NUMERO_DE_PRODUCAO - demanda
 
         # Cálculo de venda na promoção
         if resto_de_venda > 0:
             # Cálculo de Venda
-            saldo_venda = demanda * preco_de_venda
-            saldo_venda_promocao = round((resto_de_venda * preco_de_venda_promocao), 2)
+            saldo_venda = demanda * config.PRECO_DE_VENDA
+            saldo_venda_promocao = round(
+                (resto_de_venda * config.PRECO_DE_VENDA_PROMOCAO), 2
+            )
 
         elif resto_de_venda < 0:
             # Cálculo de perda de venda
-            saldo_venda = numero_de_producao * preco_de_venda
+            saldo_venda = config.NUMERO_DE_PRODUCAO * config.PRECO_DE_VENDA
             saldo_perda_venda = round(
-                (resto_de_venda * (preco_de_venda + custo_de_producao_unitaria)), 2
+                (
+                    resto_de_venda
+                    * (config.PRECO_DE_VENDA + config.CUSTO_PRODUCAO_UNITARIA)
+                ),
+                2,
             )
         else:
-            saldo_venda = numero_de_producao * preco_de_venda
+            saldo_venda = config.NUMERO_DE_PRODUCAO * config.PRECO_DE_VENDA
         # Cálculo de saldo total
         saldo_total = (
             saldo_venda_promocao + saldo_venda + custo_de_producao + saldo_perda_venda
@@ -128,14 +103,14 @@ def calcula_custos():
 
 def media_lucro():
     if len(lucros) > 0:
-        return statistics.mean(lucros)
+        return round(statistics.mean(lucros), 2)
     else:
         return 0
 
 
 def media_lucro_baixa_ocorrencia():
     if len(lucros_baixa_ocorrencia) > 0:
-        return statistics.mean(lucros_baixa_ocorrencia)
+        return round(statistics.mean(lucros_baixa_ocorrencia), 2)
     else:
         return 0
 
@@ -149,6 +124,6 @@ def media_lucro_media_ocorrencia():
 
 def media_lucro_alta_ocorrencia():
     if len(lucros_alta_ocorrencia) > 0:
-        return statistics.mean(lucros_alta_ocorrencia)
+        return round(statistics.mean(lucros_alta_ocorrencia), 2)
     else:
         return 0

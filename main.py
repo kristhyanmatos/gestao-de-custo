@@ -32,31 +32,60 @@ graficos = figura.subplots(2)
 canvas = FigureCanvasTkAgg(figura, janela_principal)
 canvas.get_tk_widget().place(x=1, y=1, relx=0.01, rely=0.01)
 
-valores_media_lucros = nadson.me
-variacao = 5
+
+variacao = 1
 indice = np.arange(variacao)
 largura_barra = 0.1
 lucros = nadson.calcula_custos()
+media_lucro = nadson.media_lucro()
+media_lucro_baixa_ocorrencia = nadson.media_lucro_baixa_ocorrencia()
+media_lucro_media_ocorrencia = nadson.media_lucro_media_ocorrencia()
+media_lucro_alta_ocorrencia = nadson.media_lucro_alta_ocorrencia()
 
 # Definindo o grafico de barra
-graficos[0].bar(indice, nadson.media_lucro_baixa_ocorrencia(), largura_barra, color="#07079c", label="Baixa")
-graficos[0].bar(
-    indice + largura_barra, nadson.media_lucro_media_ocorrencia(), largura_barra, color="#f5ce1e", label="Média"
-)
 graficos[0].bar(
     indice + largura_barra + largura_barra,
-    nadson.media_lucro_alta_ocorrencia(),
+    media_lucro_baixa_ocorrencia,
     largura_barra,
-    color="#c91509",
-    label="Alta",
+    color="#07079c",
+    label=f"Baixa:{media_lucro_baixa_ocorrencia}",
 )
 graficos[0].bar(
-    indice + largura_barra + largura_barra + largura_barra,
-    nadson.media_lucro(),
+    indice + largura_barra + largura_barra + largura_barra + largura_barra,
+    media_lucro_media_ocorrencia,
+    largura_barra,
+    color="#c91509",
+    label=f"Média: {media_lucro_media_ocorrencia}",
+)
+graficos[0].bar(
+    indice
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra,
+    media_lucro_alta_ocorrencia,
     largura_barra,
     color="#000",
-    label="Média Lucro",
+    label=f"Alta: {media_lucro_alta_ocorrencia}",
 )
+graficos[0].bar(
+    indice
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra
+    + largura_barra,
+    media_lucro,
+    largura_barra,
+    color="#cecece",
+    label=f"Total: {media_lucro}",
+)
+
 graficos[1].plot(
     range(1000),
     lucros,
@@ -66,9 +95,11 @@ graficos[1].plot(
 
 # graficos[0].set_xlim(0,100)
 graficos[0].set_ylim(0, 12)
-graficos[0].set_title("Probabilidades de Demandas", fontweight="bold")
+graficos[0].set_xlim(0, 1)
+graficos[0].set_title("Probabilidades de Ocorrência", fontweight="bold")
 graficos[0].set_xticks(indice + largura_barra)
 graficos[0].legend()
+graficos[0].grid(True)
 
 
 graficos[1].set_title("Variação de saldo", fontweight="bold")
@@ -85,6 +116,10 @@ def set_valor_variacao(event):
 
 def set_valor_multiplo(event):
     print("FDC!")
+
+
+def calcular():
+    lucros = nadson.calcula_custos()
 
 
 # Label do valor inicial
@@ -120,6 +155,16 @@ Label(
 valor_multiplo = tk.Entry(janela_principal)
 valor_multiplo.bind("<Return>", set_valor_multiplo)
 valor_multiplo.place(relx=0.82, rely=0.50, anchor=tk.CENTER)
+
+# Botões para reprodução do áudio
+botao_calcular = Button(
+    janela_principal,
+    relief="groove",
+    text="Calcular",
+    font=13,
+    command=calcular,
+)
+botao_calcular.place(relx=0.82, rely=0.6, anchor=tk.CENTER)
 
 # Footer
 # Label(janela_principal, text="Desenvolvido pelos discentes de Eng. da Computação - 2017", bg="#cfcfcf",fg="#000", font=('Helvetica', 18, 'bold'), anchor=W).place(x=180,y=640,width=1080, height=27)
