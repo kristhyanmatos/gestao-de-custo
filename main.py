@@ -6,7 +6,7 @@ import matplotlib
 import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
-
+import nadson
 
 # Definindo interface
 janela_principal = tk.Tk()
@@ -53,6 +53,13 @@ graficos[0].bar(
     color="#c91509",
     label="Média",
 )
+lucros = nadson.calcula_custos()
+graficos[1].plot(
+    range(1000),
+    lucros,
+    color="#c91509",
+    label="Média",
+)
 
 # graficos[0].set_xlim(0,100)
 graficos[0].set_ylim(0, 0.5)
@@ -61,8 +68,7 @@ graficos[0].set_xticks(indice + largura_barra)
 graficos[0].legend()
 
 
-graficos[1].set_xlim(0, 1)
-graficos[1].set_title("Foda-se", fontweight="bold")
+graficos[1].set_title("Variação de saldo", fontweight="bold")
 graficos[1].grid(True)
 
 
