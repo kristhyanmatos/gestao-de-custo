@@ -95,7 +95,7 @@ graficos[1].plot(
 
 # Grafico de Barra
 graficos[0].set_ylim(0, 350)
-graficos[0].set_title("Probabilidades de Ocorrência", fontweight="bold")
+graficos[0].set_title("Média de saldo de acordo com a ocorrência", fontweight="bold")
 graficos[0].set_xticks(indice + largura_barra)
 graficos[0].legend()
 graficos[0].grid(True)
