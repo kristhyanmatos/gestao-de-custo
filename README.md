@@ -1,2 +1,2 @@
 # gestao-de-custo
-Com os parças 2020.2
+Gestão de custos com projeção de dados futuros
